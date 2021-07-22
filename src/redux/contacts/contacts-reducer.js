@@ -12,6 +12,7 @@ import {
   fetchContactsSuccess,
   fetchContactsError,
   changeFilter,
+  requestError,
 } from './contacts-actions';
 
 const items = createReducer([], {
@@ -36,6 +37,8 @@ const loading = createReducer(false, {
   [deleteContactRequest]: () => true,
   [deleteContactSuccess]: () => false,
   [deleteContactError]: () => false,
+
+  // [requestError]: () => false,
 });
 
 //
@@ -43,8 +46,17 @@ const filter = createReducer('', {
   [changeFilter]: (_, { payload }) => payload,
 });
 
+//
+const error = createReducer('', {
+  // [requestError]: (_, { payload }) => payload,
+  [fetchContactsError]: (_, { payload }) => payload,
+  [addContactError]: (_, { payload }) => payload,
+  [deleteContactError]: (_, { payload }) => payload,
+});
+
 export default combineReducers({
   items,
   filter,
   loading,
+  error,
 });

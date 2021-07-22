@@ -14,13 +14,20 @@ class ContactList extends Component {
 
   render() {
     // const { items, filter } = this.props;
-    const { items } = this.props;
+    // const { items } = this.props;
+    let message;
+    if (this.props.loading) {
+      message = 'Processing...';
+    }
+    if (!!this.props.error) {
+      message = this.props.error;
+    }
 
-    return this.props.loading ? (
-      <div>Loading...</div>
+    return this.props.loading || !!this.props.error ? (
+      <div>{message}</div>
     ) : (
       <ul className="contact-list">
-        {items
+        {this.props.items
           // .filter((contact) => contact.name.toLowerCase().includes(filter.toLowerCase().trim()))
           .map((contact) => {
             return <ContactListItem key={contact.id} {...contact} />;
@@ -35,6 +42,7 @@ const mapStateToProps = (state) => {
     items: contactsSelectors.getFilteredContacts(state),
     loading: contactsSelectors.getLoading(state),
     // filter: contactsSelectors.getFilter(state),
+    error: contactsSelectors.getError(state),
   };
 };
 
