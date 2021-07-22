@@ -12,7 +12,7 @@ import {
   fetchContactsSuccess,
   fetchContactsError,
   changeFilter,
-  requestError,
+  // requestError,
 } from './contacts-actions';
 
 const items = createReducer([], {
