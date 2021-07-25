@@ -33,7 +33,7 @@ export const register = (credentials) => async (dispatch) => {
 
     dispatch(authActions.registerSuccess(response.data));
   } catch (error) {
-    console.log(error, 'error - register operations');
+    // console.log(error, 'error - register operations');
     dispatch(authActions.registerError(error.message));
   }
 };
@@ -54,7 +54,7 @@ export const logIn = (credentials) => async (dispatch) => {
     token.set(response.data.token);
     dispatch(authActions.loginSuccess(response.data));
   } catch (error) {
-    console.log(error, 'error - logIn operations');
+    // console.log(error, 'error - logIn operations');
     dispatch(authActions.loginError(error.message));
   }
 };

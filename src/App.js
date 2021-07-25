@@ -2,12 +2,14 @@ import { Component, Suspense, lazy } from 'react';
 import { Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { Container } from '@material-ui/core';
+
 import { authOperations } from './redux/auth';
 
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 
-import Container from './components/Container';
+// import Container from './components/Container';
 import AppBar from './components/AppBar';
 
 // import HomePage from './components/HomePage';
@@ -30,8 +32,9 @@ class App extends Component {
   render() {
     return (
       // <div className="App">
-      <Container>
+      <Container fixed>
         <AppBar />
+
         <Suspense fallback={<p>Выполняем...</p>}>
           <Switch>
             <PublicRoute exact path="/" component={HomePage} />

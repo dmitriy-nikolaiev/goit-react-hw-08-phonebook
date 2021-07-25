@@ -6,10 +6,10 @@ const styles = {
     textDecoration: 'none',
     padding: 12,
     fontWeight: 700,
-    color: '#2A363B',
+    color: '#FFF',
   },
   activeLink: {
-    color: '#E84A5F',
+    color: '#1b1332',
   },
 };
 
