@@ -17,7 +17,7 @@ const styles = {
 
 const UserMenu = ({ user, onLogout }) => (
   <div style={styles.container}>
-    <span style={styles.name}>{user.email}</span>
+    <span style={styles.name}>Welcome, {user.email}</span>
     <button type="button" onClick={onLogout}>
       Logout
     </button>

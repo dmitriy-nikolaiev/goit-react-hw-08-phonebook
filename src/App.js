@@ -1,20 +1,26 @@
-import { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { authOperations } from './redux/auth';
+import { Component, Suspense, lazy } from 'react';
+import { Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+import { authOperations } from './redux/auth';
+
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 
 import Container from './components/Container';
 import AppBar from './components/AppBar';
-import HomePage from './components/HomePage';
-import ContactsView from './components/ContactsView';
-import Register from './components/Register';
-import Login from './components/Login';
+
+// import HomePage from './components/HomePage';
+// import ContactsView from './components/ContactsView';
+// import Register from './components/Register';
+// import Login from './components/Login';
 
 import './App.scss';
 
-// import ContactForm from './components/ContactForm/';
-// import Filter from './components/Filter';
-// import ContactList from './components/ContactList/';
+const HomePage = lazy(() => import('./components/HomePage'));
+const ContactsView = lazy(() => import('./components/ContactsView'));
+const Register = lazy(() => import('./components/Register'));
+const Login = lazy(() => import('./components/Login'));
 
 class App extends Component {
   componentDidMount() {
@@ -26,21 +32,15 @@ class App extends Component {
       // <div className="App">
       <Container>
         <AppBar />
-
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/contacts" component={ContactsView} />
-        </Switch>
+        <Suspense fallback={<p>Выполняем...</p>}>
+          <Switch>
+            <PublicRoute exact path="/" component={HomePage} />
+            <PublicRoute path="/register" restricted redirectTo="/contacts" component={Register} />
+            <PublicRoute path="/login" restricted redirectTo="/contacts" component={Login} />
+            <PrivateRoute path="/contacts" redirectTo="/login" component={ContactsView} />
+          </Switch>
+        </Suspense>
       </Container>
-      // </div>
-      // <div className="App">
-      //   <h1>Phonebook</h1>
-      //   <ContactForm />
-      //   <h2>Contacts</h2>
-      //   <Filter />
-      //   <ContactList />
       // </div>
     );
   }

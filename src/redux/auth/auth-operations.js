@@ -1,8 +1,8 @@
 import axios from 'axios';
 import * as authActions from './auth-actions';
 
-// axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
-axios.defaults.baseURL = 'http://localhost:3001';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+// axios.defaults.baseURL = 'http://localhost:3001';
 
 const token = {
   set(token) {
@@ -23,14 +23,17 @@ export const register = (credentials) => async (dispatch) => {
   dispatch(authActions.registerRequest());
 
   try {
-    // const response = await axios.post('/users/signup', credentials);
-    const response = await axios.post('/users', credentials);
+    console.log(credentials, 'credentials - register operations');
 
+    const response = await axios.post('/users/signup', credentials);
+
+    // console.log(response, 'response - register operations');
     // token.set(response.data.token);
     dispatch(authActions.registerSuccess(response.data));
 
     dispatch(authActions.registerSuccess(response.data));
   } catch (error) {
+    console.log(error, 'error - register operations');
     dispatch(authActions.registerError(error.message));
   }
 };
@@ -51,6 +54,7 @@ export const logIn = (credentials) => async (dispatch) => {
     token.set(response.data.token);
     dispatch(authActions.loginSuccess(response.data));
   } catch (error) {
+    console.log(error, 'error - logIn operations');
     dispatch(authActions.loginError(error.message));
   }
 };

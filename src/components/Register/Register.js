@@ -63,6 +63,11 @@ class Register extends Component {
   }
 }
 
+// const mapDispatchToProps = (dispatch) => ({
+//   onRegister: (data) => dispatch(authOperations.register(data)),
+// });
+
+// Сокращенная запись (оборачивает dispatch и передает data):
 const mapDispatchToProps = {
   onRegister: authOperations.register,
 };
